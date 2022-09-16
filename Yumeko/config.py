@@ -14,21 +14,21 @@ class Config(object):
     # REQUIRED
     # Login to https://my.telegram.org and fill in these slots with the details given by it
 
-    API_ID = 123456  # integer value, dont use "6973446"
-    API_HASH = "d3a6dbd3e466159f7170f6af7fb35ac1"
-    TOKEN = "BOT_TOKEN"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
+    API_ID = 8477975  # integer value, dont use "6973446"
+    API_HASH = "c093e068dc7c42309ccc2de125b6c1b3"
+    TOKEN = "5278580353:AAFXFnQ-cfhdeUB-U0oUkgpiyqa9TUjApRU"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     OWNER_ID = "1635151800"  # If you dont know, run the bot and do /id in your private chat with it, also an integer
-    OWNER_USERNAME = "theBlacklinen"
-    SUPPORT_CHAT = "yumekosupportgroup"  # Your own group for support, do not add the @
+    OWNER_USERNAME = "Sneha_UwU_OwO"
+    SUPPORT_CHAT = "tyranteyeeee"  # Your own group for support, do not add the @
     JOIN_LOGGER = (
-        -1001253661229
+        -1001546153360
     )  # Prints any new group the bot is added to, prints just the name and ID.
     EVENT_LOGS = (
-        -1001190806654
+        -1001546153360
     )  # Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
 
     # RECOMMENDED
-    SQLALCHEMY_DATABASE_URI = "something://somewhat:user@hosturl:port/databasename"  # needed for any database modules
+    SQLALCHEMY_DATABASE_URI = "sqldbtype://username:pw@hostname:port/db_name"  # needed for any database modules
     LOAD = []
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
     WEBHOOK = False
@@ -39,13 +39,14 @@ class Config(object):
 
     # OPTIONAL
     ##List of id's -  (not usernames) for users which have sudo access to the bot.
-    DRAGONS = get_user_list("elevated_users.json", "1963422158")
+    DRAGONS = get_user_list("elevated_users.json", "5086893460" "5069705982" "510724476" "1883976677" "5145883564" "1606167442"  "5597384270 "1471781417" "5341414058" "1974783265")
     ##List of id's - (not usernames) for developers who will have the same perms as the owner
-    DEV_USERS = get_user_list("elevated_users.json", "1963422158")
+    DEV_USERS = get_user_list("elevated_users.json", "5086893460" "5372700643" "5380679553" "5544740697" "5598826878" "5589066429" "5282198056" "949365920 ")
     ##List of id's (not usernames) for users which are allowed to gban, but can also be banned.
-    DEMONS = get_user_list("elevated_users.json", "1963422158")
+    DEMONS = get_user_list("elevated_users.json", "2071450384" "5313362410" "5395870942" 
+"2039336161" "5153636966" "5213143273" "5555455171")
     # List of id's (not usernames) for users which WONT be banned/kicked by the bot.
-    TIGERS = get_user_list("elevated_users.json", "1963422158")
+    TIGERS = get_user_list("elevated_users.json", "5200936808")
     WOLVES = get_user_list("elevated_users.json", "1963422158")
     DONATION_LINK = None  # EG, paypal
     CERT_PATH = None
