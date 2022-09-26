@@ -1,99 +1,74 @@
-FROM debian:11
-FROM python:3.10.5-buster
-FROM nikolaik/python-nodejs:python3.9-nodejs18
+FROM python:3.10.0-slim-buster
 
-WORKDIR /Yumeko/
+ENV PIP_NO_CACHE_DIR 1
 
-RUN /usr/local/bin/python -m pip install --upgrade pip
-RUN pip3 install --upgrade pip setuptools
-RUN apt-get -y install git
-RUN apt-get update -y && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends ffmpeg && \
+RUN sed -i.bak 's/us-west-2\.ec2\.//' /etc/apt/sources.list
+
+RUN apt update && apt upgrade -y && \
     apt install --no-install-recommends -y \
-    emoji \
-    tzlocal \
-    lxml \
+    debian-keyring \
+    debian-archive-keyring \
+    bash \
+    bzip2 \
+    curl \
+    figlet \
+    git \
+    util-linux \
+    libffi-dev \
+    libjpeg-dev \
+    libjpeg62-turbo-dev \
+    libwebp-dev \
+    linux-headers-amd64 \
+    musl-dev \
+    musl \
+    neofetch \
+    php-pgsql \
+    python3-lxml \
+    postgresql \
+    postgresql-client \
+    python3-psycopg2 \
+    libpq-dev \
+    libcurl4-openssl-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    python3-pip \
+    python3-requests \
+    python3-sqlalchemy \
+    python3-tz \
+    python3-aiohttp \
+    openssl \
+    pv \
+    jq \
     wget \
-    gtts \
-    faker \
-    beautifulsoup4 \
-    requests \
-    python-telegram-bot==12.8 \
-    sqlalchemy==1.3.20 \
-    ffmpeg-python \
-    psycopg2-binary \
-    feedparser \
-    hachoir \
-    pynewtonmath \
-    spongemock \
-    zalgo-text \
-    geopy \
-    nltk \
-    psutil \
-    aiohttp \
-    Pillow \
-    CurrencyConverter \
-    googletrans \
-    jikanpy \
-    speedtest-cli \
-    coffeehouse \
-    regex \
-    bleach \
-    git+https://github.com/starry69/python-markdown2.git \
-    wikipedia \
-    telethon \
-    telegraph \
-    heroku3 \
-    spamwatch \
-    alphabet_detector \
-    pybase64 \
-    pySmartDL \
-    validators \
-    nekos.py \
-    aiofiles \
-    pyrate-limiter \
-    cachetools \
-    ujson \
-    pretty_errors \
-    TgCrypto \
-    Pyrogram \
-    yt-dlp \
-    youtube_search_python \
-    youtube_search \
-    asyncio \
-    dateparser \
-    pymongo \
-    dnspython \
-    secureme \
-    apscheduler \
-    emoji-country-flag \
-    countryinfo \
-    html2text \
-    bs4 \
-    fontTools \
-    bing_image_downloader \
-    search_engine_parser \
-    pytz \
-    lyricsgenius \
-    tswift \
-    envparse \
-    better_profanity \
-    nudepy \
-    motor \
-    cloudscraper \ 
-    pendulum \
-    pykeyboard \
-    aiohttp \
-    youtube_dl \
-    fuzzysearch \
-    Python_ARQ \
-    httpx[http2] \
-    gpytranslate \
-    google-trans-new \    
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-RUN apt-get install libxml2-dev libxslt-dev python
+    python3 \
+    python3-dev \
+    libreadline-dev \
+    libyaml-dev \
+    gcc \
+    sqlite3 \
+    libsqlite3-dev \
+    sudo \
+    zlib1g \
+    ffmpeg \
+    libssl-dev \
+    libgconf-2-4 \
+    libxi6 \
+    xvfb \
+    unzip \
+    libopus0 \
+    libopus-dev \
+    && rm -rf /var/lib/apt/lists /var/cache/apt/archives /tmp
 
-RUN pip3 install wheel
-COPY . .
-CMD ["python3", "-m", "Yumeko"]
+RUN apt-get install -y ffmpeg python3-pip curl
+RUN pip3 install --upgrade pip setuptools
+
+RUN mkdir /Yumeko/
+COPY . /Yumeko
+WORKDIR /Yumeko
+
+ENV PATH="/home/bot/bin:$PATH"
+
+RUN pip3 install -U -r requirements.txt
+
+# Starting Worker
+CMD ["python3","-m","Yumeko"]
