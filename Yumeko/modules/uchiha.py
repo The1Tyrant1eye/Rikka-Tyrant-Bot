@@ -27,9 +27,14 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, ParseMo
 from telegram.ext import (
 CallbackContext,
 CommandHandler,
+run_async
 )
 
 PHOTO = "https://telegra.ph/file/7cb643db87efa3a111744.jpg"
+
+
+
+@run_async
 def uchiha(update: Update, context: CallbackContext):
 
     TEXT = f"""
@@ -53,7 +58,7 @@ def uchiha(update: Update, context: CallbackContext):
     )
 
 
-uchiha_handler = CommandHandler(("uchiha", "network", "net"), uchiha, run_async = True)
+uchiha_handler = CommandHandler(("uchiha", "network", "net"), uchiha)
 dispatcher.add_handler(uchiha_handler)
 
 __help__ = """
