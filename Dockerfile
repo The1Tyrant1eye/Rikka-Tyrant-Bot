@@ -8,7 +8,8 @@ RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN pip3 install --upgrade pip setuptools
 RUN apt-get -y install git
 RUN apt-get update -y && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends ffmpeg \
+    && apt-get install -y --no-install-recommends ffmpeg && \
+    apt install --no-install-recommends -y \
     emoji \
     tzlocal \
     lxml \
