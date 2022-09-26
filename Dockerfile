@@ -94,10 +94,6 @@ RUN apt-get update -y && apt-get upgrade -y \
     && rm -rf /var/lib/apt/lists/*
 RUN apt-get install libxml2-dev libxslt-dev python
 
-
-COPY requirements.txt .
-
 RUN pip3 install wheel
-RUN pip3 install --no-cache-dir -U -r requirements.txt
 COPY . .
 CMD ["python3", "-m", "Yumeko"]
