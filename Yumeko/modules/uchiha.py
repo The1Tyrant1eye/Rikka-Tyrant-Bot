@@ -32,8 +32,6 @@ run_async
 
 PHOTO = "https://telegra.ph/file/7cb643db87efa3a111744.jpg"
 
-
-
 @run_async
 def uchiha(update: Update, context: CallbackContext):
 
