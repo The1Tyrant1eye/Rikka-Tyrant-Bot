@@ -8,6 +8,7 @@ from contextlib import suppress
 import Yumeko.modules.sql.welcome_sql as sql
 import Yumeko
 from Yumeko import (
+    ALLOW_CHATS,
     DEV_USERS,
     LOGGER,
     OWNER_ID,
@@ -198,13 +199,10 @@ def new_member(update: Update, context: CallbackContext):
                     f"Bot Owner just joined the group"
                 )
                 continue
-            
-RYU_GOD = "https://telegra.ph/file/bf4b0ef0fcb15ef46a0cd.jpg"
 
-# Give the monarch Ryu Welcome
             if new_mem.id == 5544740697:
                 update.effective_message.reply_photo(
-                   RYU_GOD, f"Welcome to {html.escape(chat.title)} My Liege, How are you Doing?.", reply_to_message_id=reply
+                   "https://telegra.ph/file/bf4b0ef0fcb15ef46a0cd.jpg", f"Welcome to {html.escape(chat.title)} My Liege, How are you Doing?.", reply_to_message_id=reply
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
@@ -311,7 +309,7 @@ RYU_GOD = "https://telegra.ph/file/bf4b0ef0fcb15ef46a0cd.jpg"
             # Welcome yourself
             elif new_mem.id == bot.id:
                 creator = None
-                if not lunaBot.ALLOW_CHATS:
+                if not ALLOW_CHATS:
                     with suppress(BadRequest):
                          update.effective_message.reply_text(f"Groups are disabled for {bot.first_name}, I'm outta here.")
                     bot.leave_chat(update.effective_chat.id)
@@ -967,7 +965,7 @@ def clean_welcome(update: Update, context: CallbackContext) -> str:
 @user_admin
 def cleanservice(update: Update, context: CallbackContext) -> str:
     args = context.args
-    chat = update.effective_chat  # type: Optional[Chat]
+    chat = update.effective_chat
     if chat.type != chat.PRIVATE:
         if len(args) >= 1:
             var = args[0]
