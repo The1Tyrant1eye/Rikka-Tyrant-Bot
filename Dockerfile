@@ -1,74 +1,22 @@
-FROM python:3.10.0-slim-buster
+FROM debian:11
+FROM python:3.10.5-buster
+FROM nikolaik/python-nodejs:python3.9-nodejs18
 
-ENV PIP_NO_CACHE_DIR 1
+WORKDIR /Yumeko/
 
-RUN sed -i.bak 's/us-west-2\.ec2\.//' /etc/apt/sources.list
-
-RUN apt update && apt upgrade -y && \
-    apt install --no-install-recommends -y \
-    debian-keyring \
-    debian-archive-keyring \
-    bash \
-    bzip2 \
-    curl \
-    figlet \
-    git \
-    util-linux \
-    libffi-dev \
-    libjpeg-dev \
-    libjpeg62-turbo-dev \
-    libwebp-dev \
-    linux-headers-amd64 \
-    musl-dev \
-    musl \
-    neofetch \
-    php-pgsql \
-    python3-lxml \
-    postgresql \
-    postgresql-client \
-    python3-psycopg2 \
-    libpq-dev \
-    libcurl4-openssl-dev \
-    libxml2-dev \
-    libxslt1-dev \
-    python3-pip \
-    python3-requests \
-    python3-sqlalchemy \
-    python3-tz \
-    python3-aiohttp \
-    openssl \
-    pv \
-    jq \
-    wget \
-    python3 \
-    python3-dev \
-    libreadline-dev \
-    libyaml-dev \
-    gcc \
-    sqlite3 \
-    libsqlite3-dev \
-    sudo \
-    zlib1g \
-    ffmpeg \
-    libssl-dev \
-    libgconf-2-4 \
-    libxi6 \
-    xvfb \
-    unzip \
-    libopus0 \
-    libopus-dev \
-    && rm -rf /var/lib/apt/lists /var/cache/apt/archives /tmp
-
-RUN apt-get install -y ffmpeg python3-pip curl
+RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN pip3 install --upgrade pip setuptools
+RUN apt-get -y install git
+RUN apt-get update -y && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends ffmpeg \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+RUN apt-get install libxml2-dev libxslt-dev python
 
-RUN mkdir /Yumeko/
-COPY . /Yumeko
-WORKDIR /Yumeko
 
-ENV PATH="/home/bot/bin:$PATH"
+COPY requirements.txt .
 
-RUN pip3 install -U -r requirements.txt
-
-# Starting Worker
-CMD ["python3","-m","Yumeko"]
+RUN pip3 install wheel
+RUN pip3 install --no-cache-dir -U -r requirements.txt
+COPY . .
+CMD ["python3", "-m", "Yumeko"]
